@@ -22,12 +22,8 @@ public class Ludoteca {
         videojuegos.clear();
         int t = 0;
         while (t < Videojuego.nombres.size()) {
-            videojuegos.add(toString(Videojuego.nombres.get(t)));
+            videojuegos.add(String.valueOf((t + 1)));
+            t += 1;
         }
-
-    }
-
-    private String toString(String s) {
-    return s;
     }
 }

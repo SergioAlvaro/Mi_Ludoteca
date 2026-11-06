@@ -57,7 +57,7 @@ void main(){
     int Opciones = 0;
     while (true) {
         System.out.println("""
-                        
+                        ------------------------------------------------------------------------
                         ------------------------------------------------------------------------
                         ------------------------------------------------------------------------
                         --------------▒▒▒    ▒▒▒   ▒▒▒▒▒▒▒▒   ▒▒▒    ▒▒  ▒▒    ▒▒---------------
@@ -87,8 +87,8 @@ void main(){
                 System.out.println("Horas jugadas: " + Videojuego.horasJugadas.get(reloj));
                 System.out.println("Puntuacion dada: " + Videojuego.puntuacion.get(reloj) + "/100");
                 System.out.println("Plataforma: " + Videojuego.plataforma.get(reloj));
-                System.out.println("------------");
                 System.out.println("identificador: " + Ludoteca.videojuegos.get(reloj));
+                System.out.println("------------");
                 reloj += 1;
             }
             teclado.nextLine();
