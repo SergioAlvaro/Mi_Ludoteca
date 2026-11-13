@@ -1,15 +1,25 @@
 package Dominio;
-
 import java.util.ArrayList;
 import java.util.Scanner;
+
 public class Videojuego {
     Scanner teclado = new Scanner(System.in);
+    public ArrayList<Double> tipoJuego = new ArrayList<>();
+    //1 - ROL
+    //2 - DEPORTIVO
+    // 3 - ESTRATEGIA
+    // 4 - ONLINE
+    VideojuegoRol videojuegoRol = new VideojuegoRol();
+    VideojuegoDeportivo videojuegoDeportivo = new VideojuegoDeportivo();
+    VideojuegoEstrategia videojuegoEstrategia = new VideojuegoEstrategia();
+    VideojuegoOnline videojuegoOnline = new VideojuegoOnline();
+
     public ArrayList<String> nombres= new ArrayList<>();
     public ArrayList<String> plataforma= new ArrayList<>();
     public ArrayList<Double> puntuacion= new ArrayList<>();
     public ArrayList<Double> horasJugadas= new ArrayList<>();
     Double puntuacionValida(Scanner teclado){
-        Double apoyo = -1.00;
+        double apoyo = -1.00;
         while (apoyo < 0|| apoyo > 100){
             apoyo = teclado.nextDouble();
             teclado.nextLine();
@@ -20,7 +30,7 @@ public class Videojuego {
         return apoyo;
     }
     Double horasValida(Scanner teclado){
-        Double apoyo = -1.00;
+        double apoyo = -1.00;
         System.out.println("Cuantas horas tienes en el juego");
         while (apoyo<0.00){
             apoyo = teclado.nextDouble();
@@ -30,15 +40,19 @@ public class Videojuego {
         }
         return apoyo;
     }
-     public void ejecutar (){
-        int control = -1;
-        int reloj = 0;
-        Double apoyo = -1.00;
+    public void ejecutar (){
+        int control = -1, control2 = -1;
+        Double apoyo;
         nombres.clear();
         plataforma.clear();
         puntuacion.clear();
         horasJugadas.clear();
-        while (control != 1){
+        tipoJuego.clear();
+        videojuegoRol.numeroMisiones.clear();
+        videojuegoOnline.numeroJugadoresOnline.clear();
+        videojuegoEstrategia.numeroFacciones.clear();
+        videojuegoDeportivo.deporte.clear();
+        while (control != 2){
             System.out.println("Que juego quieres introducir");
             nombres.add(teclado.nextLine());
             System.out.println("En que plataforma está el juego");
@@ -46,23 +60,65 @@ public class Videojuego {
             System.out.println("que puntuacion le quieres meter");
             apoyo = puntuacionValida(teclado);
             puntuacion.add(apoyo);
-            apoyo = -1.00;
             apoyo = horasValida(teclado);
             horasJugadas.add(apoyo);
-            apoyo = -1.00;
-            while (control < 0||control>1) {
+            System.out.println("que tipo de juego es");
+            while (true){
                 System.out.println("""
-                        0) añadir otro juego.
-                        1) terminar de añadir.""");
-                control = teclado.nextInt();
-                teclado.nextLine();
-                if (control < 0||control>1){
-                    System.out.println("presione 1 o 0");
+                        1) VIDEOJUEGO DE ROL
+                        2) VIDEOJUEGO DEPORTIVO
+                        3) VIDEOJUEGO DE ESTRATEGIA
+                        4) VIDEOJUEGO ONLINE""");
+                control2 = teclado.nextInt();
+                if (control2 < 1 || control2 > 4){
+                    System.out.println("introduce un valor valido");
+                }
+                else {
+                    tipoJuego.add((double) control2);
+                    if(tipoJuego.get(tipoJuego.size()) == 1){
+                        videojuegoRol.Rol();
+
+                        videojuegoOnline.numeroJugadoresOnline.add(0.00);
+                        videojuegoDeportivo.deporte.add("");
+                        videojuegoEstrategia.numeroFacciones.add(0.00);
+                    }
+                    else if (tipoJuego.get(tipoJuego.size()) == 2) {
+                        videojuegoDeportivo.Deportivo();
+
+                        videojuegoOnline.numeroJugadoresOnline.add(0.00);
+                        videojuegoRol.numeroMisiones.add(0.00);
+                        videojuegoEstrategia.numeroFacciones.add(0.00);
+                    }
+                    else if (tipoJuego.get(tipoJuego.size()) == 3) {
+                        videojuegoEstrategia.Estrategia();
+
+                        videojuegoOnline.numeroJugadoresOnline.add(0.00);
+                        videojuegoRol.numeroMisiones.add(0.00);
+                        videojuegoDeportivo.deporte.add("");
+                    }
+                    else if (tipoJuego.get(tipoJuego.size()) == 4) {
+                        videojuegoOnline.Online();
+
+                        videojuegoDeportivo.deporte.add("");
+                        videojuegoEstrategia.numeroFacciones.add(0.00);
+                        videojuegoRol.numeroMisiones.add(0.00);
+                    }
+                    break;
                 }
             }
-            if (control==0){
+            while (control < 1||control>2) {
+                System.out.println("""
+                        1) añadir otro juego.
+                        2) terminar de añadir.""");
+                control = teclado.nextInt();
+                teclado.nextLine();
+                if (control < 1||control>2){
+                    System.out.println("presione 1 o 2");
+                }
+            }
+            if (control==1){
                 control = -1;
             }
         }
-     }
+    }
 }
